@@ -1,10 +1,13 @@
 import * as http from 'http';
+import { getListEpisodes } from './controllers/podcastsController';
 
-const server = http.createServer((req:http.IncomingMessage, res:http.ServerResponse) => {
-
+const server = http.createServer(async (req:http.IncomingMessage, res:http.ServerResponse) => {
+    if(req.method === 'GET') {
+        await getListEpisodes(req, res);
+    }
 })
 
-const port = '3005';
+const port = process.env.PORT;
 
 server.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);
