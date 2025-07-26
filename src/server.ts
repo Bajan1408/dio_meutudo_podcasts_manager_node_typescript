@@ -1,9 +1,14 @@
 import * as http from 'http';
-import { getListEpisodes } from './controllers/podcastsController';
+import { getFilteredEpisodes, getListEpisodes } from './controllers/podcastsController';
+import { Routes } from './routes/routes';
 
 const server = http.createServer(async (req:http.IncomingMessage, res:http.ServerResponse) => {
-    if(req.method === 'GET') {
-        await getListEpisodes(req, res);
+    const [baseUrl, query] = req.url?.split('?') ?? ['', ''];
+
+    if(req.method === 'GET' && baseUrl === Routes.LIST) {
+        await getListEpisodes(req, res); 
+    } else if(req.method === 'GET' && baseUrl === Routes.FILTER) {
+        await getFilteredEpisodes(req, res);
     }
 })
 

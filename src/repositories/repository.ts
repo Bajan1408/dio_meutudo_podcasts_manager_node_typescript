@@ -11,7 +11,7 @@ export const repositoryData = async (podcastEditor?: string): Promise<PodcastMod
 
     if(podcastEditor) {
         jsonFile = jsonFile.filter((podcast: PodcastModel) => {
-            podcast.podcastEditor === podcastEditor;
+            return podcast.podcastEditor === podcastEditor;
         })
     }
 
